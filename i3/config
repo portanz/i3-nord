@@ -1,0 +1,180 @@
+# ---------------------------------------------------------------------
+# BASIC SETTINGS
+# ---------------------------------------------------------------------
+# Set wallpaper from folder
+exec_always --no-startup-id feh --bg-fill /home/portanz/.config/i3/wallpapers/1.png
+
+# Set the modifier key to the Windows/Super key
+set $mod Mod4
+
+# Font for window titles and bar
+font pango:monospace 10
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# ---------------------------------------------------------------------
+# NORD COLOR PALETTE VARIABLES
+# ---------------------------------------------------------------------
+
+set $nord0  #2E3440
+set $nord1  #3B4252
+set $nord2  #434C5E
+set $nord3  #4C566A
+set $nord4  #D8DEE9
+set $nord5  #E5E9F0
+set $nord6  #ECEFF4
+set $nord7  #8FBCBB
+set $nord8  #88C0D0
+set $nord9  #81A1C1
+set $nord10 #5E81AC
+set $nord11 #BF616A
+set $nord12 #D08770
+set $nord13 #EBCB8B
+set $nord14 #A3BE8C
+set $nord15 #B48EAD
+
+# ---------------------------------------------------------------------
+# WINDOW GAPS & BORDERS
+# ---------------------------------------------------------------------
+
+# Set inner/outer gaps
+gaps inner  5
+gaps outer 0
+
+# Smart gaps: Only enable gaps if there is more than one container
+smart_gaps on
+
+# Window borders (pixel 1 removes title bars for a cleaner look)
+default_border pixel 2
+default_floating_border pixel 2
+
+# Set environment variables for Qt apps
+exec --no-startup-id env QT_QPA_PLATFORMTHEME=qt5ct QT_QPA_PLATFORMTHEME=qt6ct
+
+# ---------------------------------------------------------------------
+# WINDOW COLORS (Class | Border | Bkg | Text | Indicator | ChildBorder)
+# ---------------------------------------------------------------------
+
+# Focused window (Active) - Nord8 (Frost Blue)
+client.focused          $nord8 $nord8 $nord0 $nord8 $nord8
+
+# Unfocused window (Inactive) - Nord1 (Dark Grey)
+client.unfocused        $nord1 $nord1 $nord4 $nord1 $nord1
+
+# Focused window (Inactive) - Nord2
+client.focused_inactive $nord2 $nord2 $nord4 $nord2 $nord2
+
+# Urgent window (Alert) - Nord11 (Red)
+client.urgent           $nord11 $nord11 $nord4 $nord11 $nord11
+
+# Placeholder
+client.placeholder      $nord0 $nord0 $nord4 $nord0 $nord0
+
+# Background
+client.background       $nord0
+
+# ---------------------------------------------------------------------
+# KEYBINDINGS
+# ---------------------------------------------------------------------
+
+# Start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# --- ROFI LAUNCHER ---
+# Launches Rofi in "drun" mode (desktop applications)
+bindsym $mod+d exec "rofi -show drun"
+
+# Change focus (Vim style)
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Change focus (Arrow keys)
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window (Vim style)
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Split in horizontal orientation
+bindsym $mod+b split h
+
+# Split in vertical orientation
+bindsym $mod+v split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# ---------------------------------------------------------------------
+# WORKSPACES
+# ---------------------------------------------------------------------
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# ---------------------------------------------------------------------
+# SYSTEM CONTROLS
+# ---------------------------------------------------------------------
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# ---------------------------------------------------------------------
+# STATUS BAR
+# ---------------------------------------------------------------------
+
+exec_always --no-startup-id polybar main &
